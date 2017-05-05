@@ -1,0 +1,15 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Deck</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>Name</ion-label>
+            <ion-input type="text" [(ngModel)]="deckModel.Name"></ion-input>
+        </ion-item>
+    </ion-list>
+    <button ion-button class="width-percentage-100" (click)="saveDeck()">Save</button>
+    <button *ngIf="!isCreation" ion-button color="danger" outline class="width-percentage-100" (click)="deleteDeck()">Delete</button>
+</ion-content>

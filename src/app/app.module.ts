@@ -7,14 +7,19 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SQLite } from '@ionic-native/sqlite';
 import { DeckData } from "../providers/deck-data.provider";
+import { CardData } from "../providers/card-data.provider";
 import { DBContext } from "../providers/db-context.provider";
-import { DeckDetail } from "../pages/deck-detail/deck-detail";
+import { DeckDetailPage } from "../pages/deck-detail/deck-detail";
+import { CardsPage } from "../pages/cards/cards";
+import { CardDetailPage } from "../pages/card-detail/card-detail";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    DeckDetail
+    DeckDetailPage,
+    CardsPage,
+    CardDetailPage
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,9 @@ import { DeckDetail } from "../pages/deck-detail/deck-detail";
   entryComponents: [
     MyApp,
     HomePage,
-    DeckDetail
+    DeckDetailPage,
+    CardsPage,
+    CardDetailPage
   ],
   providers: [
     StatusBar,
@@ -32,6 +39,7 @@ import { DeckDetail } from "../pages/deck-detail/deck-detail";
     SQLite,
     DBContext,
     DeckData,
+    CardData,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

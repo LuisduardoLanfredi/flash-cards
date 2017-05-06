@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HomePage } from "../home/home";
-import { DeckModel } from "../../models/deck";
+import { DeckModel } from "../../models/deck.model";
 import { DeckData } from "../../providers/deck-data.provider";
 
 @IonicPage()
@@ -9,7 +9,7 @@ import { DeckData } from "../../providers/deck-data.provider";
     selector: 'page-deck-detail',
     templateUrl: 'deck-detail.html',
 })
-export class DeckDetail {
+export class DeckDetailPage {
 
     private homePage: HomePage;
     private deckModel: DeckModel;
@@ -45,6 +45,7 @@ export class DeckDetail {
 
         operation.then(s => {
             this.homePage.loadDecks();
+            this.homePage.footerDisplay = 'hidden';
             this.navCtrl.pop()
         }).catch(err => {
             console.log('Error!');
@@ -58,21 +59,23 @@ export class DeckDetail {
             message: 'Deleting this deck you are going to delete all releated cards together.',
             buttons: [
                 {
-                    text: 'Proceed',
-                    handler: () => {
-                        this.deckData.deleteItem(this.deckModel).then(s => {
-                            this.homePage.loadDecks();
-                            this.navCtrl.pop()
-                        }).catch(err => {
-                            console.log('Error!');
-                        });
-                    }
-                },
-                {
                     text: 'Cancel',
                     handler: () => {
                         console.log('Canceled.');
                     }
+                },
+                {
+                    text: 'Proceed',
+                    handler: () => {
+                        this.deckData.deleteItem(this.deckModel).then(s => {
+                            this.homePage.loadDecks();
+                            this.homePage.footerDisplay = 'hidden';
+                            this.navCtrl.pop();
+                        }).catch(err => {
+                            console.log('Error!');
+                        });
+                    }
+
                 }
             ]
         });

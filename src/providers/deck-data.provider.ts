@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DBContext } from "./db-context.provider";
-import { DeckModel } from "../models/deck";
+import { DeckModel } from "../models/deck.model";
 
 @Injectable()
 export class DeckData {

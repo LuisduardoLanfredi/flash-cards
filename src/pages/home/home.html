@@ -1,9 +1,39 @@
 <ion-content padding>
-    <button ion-button class="width-percentage-100" (click)="createDeck()" >Create new deck!</button>
-    <ion-list>
-        <ion-item *ngFor="let deck of decks; let i=index" (click)="editDeck(deck)">
-            <h2>{{deck.Name}}</h2>
-            <p>Hayao Miyazaki • {{deck.Id}}</p>
-        </ion-item>
-    </ion-list>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button ion-button class="width-percentage-100" (tap)="createDeck()">Create new deck!</button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-list>
+                    <ion-item *ngFor="let deck of decks; let i=index" (tap)="openMenu(deck)">
+                        <div>
+                            <h2>{{deck.Name}}</h2>
+                            <p>Hayao Miyazaki • {{deck.Id}}</p>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
+<ion-footer padding [ngClass]="footerDisplay">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6>
+                <button ion-button icon-left class="width-percentage-100" (click)="openCardsPage()">
+                    <ion-icon name="md-add"></ion-icon>
+                    Cards
+                </button>
+            </ion-col>
+            <ion-col col-6>
+                <button ion-button icon-left class="width-percentage-100" (click)="openDeckDetailPage()">
+                    <ion-icon name="md-apps"></ion-icon>
+                    Edit Deck
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

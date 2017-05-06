@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
-import { DeckDetailPage } from './deck-detail';
+import { CardsPage } from './cards';
 
 @NgModule({
   declarations: [
-    DeckDetailPage,
+    CardsPage,
   ],
   imports: [
-    IonicModule.forRoot(DeckDetailPage),
+    IonicModule.forRoot(CardsPage),
   ],
   exports: [
-    DeckDetailPage
+    CardsPage
   ]
 })
-export class DeckDetailModule {}
+export class CardsModule {}

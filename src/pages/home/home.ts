@@ -1,16 +1,28 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { DeckModel } from "../../models/deck";
+import { DeckModel } from "../../models/deck.model";
 import { DeckData } from "../../providers/deck-data.provider";
-import { DeckDetail } from "../deck-detail/deck-detail";
+import { DeckDetailPage } from "../deck-detail/deck-detail";
+import { CardDetailPage } from "../card-detail/card-detail";
 
 @Component({
     selector: 'page-home',
-    templateUrl: 'home.html'
+    templateUrl: 'home.html',
+    styles: [`
+        .footer {
+            /*background-color: #fff;*/
+        }
+        ion-item:hover {
+            background-color: #f3f3f3;
+        }
+        `
+    ]
 })
-export class HomePage {
 
+export class HomePage {
     private decks: Array<DeckModel>;
+    private selectedDeck: DeckModel;
+    public footerDisplay: string = 'hidden';
 
     constructor(public navCtrl: NavController, public platform: Platform, public deckData: DeckData) {
         this.decks = new Array<DeckModel>();
@@ -28,16 +40,28 @@ export class HomePage {
         });
     }
 
-    public createDeck(): void {
-        this.navCtrl.push(DeckDetail, {
+    private createDeck(): void {
+        this.navCtrl.push(DeckDetailPage, {
             homePage: this
         });
     }
 
-    public editDeck(deck: DeckModel): void{
-        this.navCtrl.push(DeckDetail, {
+    private openMenu(deck: DeckModel): void {
+        this.selectedDeck = deck;
+        this.footerDisplay = 'visible';
+    }
+
+    private openDeckDetailPage() : void {
+        this.navCtrl.push(DeckDetailPage, {
             homePage: this,
-            deck: deck
+            deck: this.selectedDeck
+        });
+    }
+
+    private openCardsPage() : void {
+        this.navCtrl.push(CardDetailPage, {
+            homePage: this,
+            deck: this.selectedDeck
         });
     }
 }

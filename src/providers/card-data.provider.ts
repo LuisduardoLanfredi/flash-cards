@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DBContext } from "./db-context.provider";
 import { CardModel } from "../models/card.model";
+import { DeckModel } from "../models/deck.model";
 
 @Injectable()
 export class CardData {
@@ -14,11 +15,7 @@ export class CardData {
                 .dbContext.db
                 .executeSql(InsertQuery, [card.Front, card.Back, card.Deck.Id], (r) => {
                     console.log('Inserted... Sucess..');
-                    this
-                        .getRows()
-                        .then(s => {
-                            resolve(true)
-                        });
+                    resolve(true)
                 }, e => {
                     console.log('Inserted Error', e);
                     resolve(false);
@@ -26,24 +23,20 @@ export class CardData {
         })
     }
 
-    // public updateItem(deck: DeckModel) {
-    //     return new Promise<any>(resolve => {
-    //         var InsertQuery = "UPDATE Decks SET Name = ? WHERE Id = ?";
-    //         this
-    //             .dbContext.db
-    //             .executeSql(InsertQuery, [deck.Name, deck.Id], (r) => {
-    //                 console.log('Updated... Sucess..', deck.Name);
-    //                 this
-    //                     .getRows()
-    //                     .then(s => {
-    //                         resolve(true)
-    //                     });
-    //             }, e => {
-    //                 console.log('Inserted Error', e);
-    //                 resolve(false);
-    //             })
-    //     })
-    // }
+    public updateItem(card: CardModel) {
+        return new Promise<any>(resolve => {
+            var InsertQuery = "UPDATE Cards SET Front = ?, Back = ? WHERE Id = ?";
+            this
+                .dbContext.db
+                .executeSql(InsertQuery, [card.Front, card.Back, card.Id], (r) => {
+                    console.log('Updated... Sucess..', card.Front);
+                    resolve(true)
+                }, e => {
+                    console.log('Inserted Error', e);
+                    resolve(false);
+                })
+        })
+    }
 
     // public deleteItem(deck: DeckModel) {
     //     return new Promise<any>(resolve => {
@@ -64,19 +57,17 @@ export class CardData {
     //     })
     // }
 
-    public getRows() {
+    public getRows(cardId: number) {
         return new Promise<Array<CardModel>>(res => {
             let arr: Array<CardModel> = new Array<CardModel>();
-            let query = "SELECT Id, Front, Back, Deck_Id FROM Cards";
-            this.dbContext.db.executeSql(query, [], rs => {
+            let query = "SELECT Id, Front, Back, Deck_Id FROM Cards WHERE Deck_Id = ?";
+            this.dbContext.db.executeSql(query, [cardId], rs => {
                 if (rs.rows.length > 0) {
                     for (var i = 0; i < rs.rows.length; i++) {
-                        var item = rs
-                            .rows
-                            .item(i);
-
-                            arr
-                            .push(item);
+                        var item = rs.rows.item(i);
+                        item.Deck = new DeckModel();
+                        item.Deck.Id = item.Deck_Id;
+                        arr.push(item);
                     }
                 }
                 res(arr);

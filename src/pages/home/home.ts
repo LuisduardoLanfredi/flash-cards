@@ -3,7 +3,7 @@ import { NavController, Platform } from 'ionic-angular';
 import { DeckModel } from "../../models/deck.model";
 import { DeckData } from "../../providers/deck-data.provider";
 import { DeckDetailPage } from "../deck-detail/deck-detail";
-import { CardDetailPage } from "../card-detail/card-detail";
+import { CardsPage } from "../cards/cards";
 
 @Component({
     selector: 'page-home',
@@ -59,7 +59,7 @@ export class HomePage {
     }
 
     private openCardsPage() : void {
-        this.navCtrl.push(CardDetailPage, {
+        this.navCtrl.push(CardsPage, {
             homePage: this,
             deck: this.selectedDeck
         });

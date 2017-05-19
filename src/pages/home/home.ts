@@ -4,6 +4,7 @@ import { DeckModel } from "../../models/deck.model";
 import { DeckData } from "../../providers/deck-data.provider";
 import { DeckDetailPage } from "../deck-detail/deck-detail";
 import { CardsPage } from "../cards/cards";
+import { SqlStorage } from "../../providers/sql";
 
 @Component({
     selector: 'page-home',
@@ -20,7 +21,7 @@ import { CardsPage } from "../cards/cards";
 })
 
 export class HomePage {
-    private decks: Array<DeckModel>;
+    private decks: Array<DeckModel> = new Array<DeckModel>();
     private selectedDeck: DeckModel;
     public footerDisplay: string = 'hidden';
 
@@ -33,10 +34,10 @@ export class HomePage {
     }
 
     public loadDecks(): void {
-        this.deckData.getRows().then(data => {
-            this.decks = data;
+        this.deckData.getRows().then(res => {
+            this.decks = res;
         }).catch(err => {
-            console.log('Error!');
+            console.log(err);
         });
     }
 
@@ -51,14 +52,14 @@ export class HomePage {
         this.footerDisplay = 'visible';
     }
 
-    private openDeckDetailPage() : void {
+    private openDeckDetailPage(): void {
         this.navCtrl.push(DeckDetailPage, {
             homePage: this,
             deck: this.selectedDeck
         });
     }
 
-    private openCardsPage() : void {
+    private openCardsPage(): void {
         this.navCtrl.push(CardsPage, {
             homePage: this,
             deck: this.selectedDeck

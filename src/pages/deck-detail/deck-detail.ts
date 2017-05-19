@@ -48,7 +48,7 @@ export class DeckDetailPage {
             this.homePage.footerDisplay = 'hidden';
             this.navCtrl.pop()
         }).catch(err => {
-            console.log('Error!');
+            console.log(err);
         });
     }
 
@@ -67,15 +67,14 @@ export class DeckDetailPage {
                 {
                     text: 'Proceed',
                     handler: () => {
-                        this.deckData.deleteItem(this.deckModel).then(s => {
+                        this.deckData.deleteItem(this.deckModel.Id).then(s => {
                             this.homePage.loadDecks();
                             this.homePage.footerDisplay = 'hidden';
                             this.navCtrl.pop();
                         }).catch(err => {
-                            console.log('Error!');
+                            console.log(err);
                         });
                     }
-
                 }
             ]
         });

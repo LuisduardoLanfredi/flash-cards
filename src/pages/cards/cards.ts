@@ -30,10 +30,10 @@ export class CardsPage {
     }
 
     public loadCards(): void{
-         this.cardData.getRows(this.deck.Id).then(data => {
-            this.cards = data;
+        this.cardData.getRows(this.deck.Id).then(res => {
+            this.cards = res;
         }).catch(err => {
-            console.log('Error!');
+            console.log(err);
         });
     }
 

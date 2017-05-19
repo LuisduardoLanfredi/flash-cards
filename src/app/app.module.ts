@@ -8,7 +8,6 @@ import { HomePage } from '../pages/home/home';
 import { SQLite } from '@ionic-native/sqlite';
 import { DeckData } from "../providers/deck-data.provider";
 import { CardData } from "../providers/card-data.provider";
-import { DBContext } from "../providers/db-context.provider";
 import { DeckDetailPage } from "../pages/deck-detail/deck-detail";
 import { CardsPage } from "../pages/cards/cards";
 import { CardDetailPage } from "../pages/card-detail/card-detail";
@@ -37,7 +36,6 @@ import { CardDetailPage } from "../pages/card-detail/card-detail";
     StatusBar,
     SplashScreen,
     SQLite,
-    DBContext,
     DeckData,
     CardData,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
